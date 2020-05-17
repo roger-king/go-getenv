@@ -9,8 +9,8 @@ import (
 // DefaultString -
 type DefaultString *string
 
-// GetEnv - main function to fetch for environment variable or return default
-func GetEnv(key string, d DefaultString) string {
+// EnvOrDefault - main function to fetch for environment variable or return default
+func EnvOrDefault(key string, d DefaultString) string {
 	value := os.Getenv(key)
 	if len(value) == 0 && d != nil {
 		log.Print(fmt.Sprintf("%s is not found. fallback to default value.", key))

@@ -16,7 +16,7 @@ type GetEnvSuite struct {
 }
 
 func (s *GetEnvSuite) TestGetEnvReturnsDefault_Succeeds() {
-	value := GetEnv("PORT", String(expectedDefaultValue))
+	value := EnvOrDefault("PORT", String(expectedDefaultValue))
 
 	s.Equal(expectedDefaultValue, value)
 }
@@ -24,13 +24,13 @@ func (s *GetEnvSuite) TestGetEnvReturnsDefault_Succeeds() {
 func (s *GetEnvSuite) TestGetEnvReturnsEnvOverDefault_Succeeds() {
 	os.Setenv("PORT", ":9000")
 
-	value := GetEnv("PORT", String(expectedDefaultValue))
+	value := EnvOrDefault("PORT", String(expectedDefaultValue))
 
 	s.Equal(":9000", value)
 }
 
 func (s *GetEnvSuite) TestGetEnvPanics_Succeeds() {
-	s.Assert().Panics(func() { GetEnv("PORT", Nil()) }, "Expected panic of missing environment variable")
+	s.Assert().Panics(func() { EnvOrDefault("PORT", Nil()) }, "Expected panic of missing environment variable")
 }
 
 func TestGetEnvSuite(t *testing.T) {
